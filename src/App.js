@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {GlobalProvider} from "./context/Provider";
+import {Dashboard} from "./routes/dashboard";
+import {ElementDetail, Elements, ModifyElement} from "./routes/elements";
+import {Alarms} from './routes/alarms'
+import RouteWrapper from "./routes/RouteWrapper";
+import Instruments from "./routes/instruments/Instruments";
+import {Variables} from "./routes/variables";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+		<BrowserRouter>
+			<GlobalProvider>
+				<Routes>
+					<Route element={<RouteWrapper/>}>
+						<Route path={"/"} element={<Dashboard/> } />
+						<Route path={"/elementos"} element={<Elements/> } />
+						<Route path={"/elementos/:id"} element={<ElementDetail />} />
+						<Route path={"/elementos/modificar/:id"} element={<ModifyElement/>} />
+						<Route path={"/alarmas"} element={<Alarms />} />
+						<Route path={"/instrumentos"} element={<Instruments/>} />
+						<Route path={"/variables"} element={<Variables/>} />
+					</Route>
+				</Routes>
+			</GlobalProvider>
+		</BrowserRouter>
+    );
 }
 
 export default App;

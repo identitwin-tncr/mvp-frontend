@@ -1,0 +1,18 @@
+[
+	{
+		"label": "Variables de monitoreo",
+		"path": "/variables"
+	},
+	{
+		"label": "Alarmas",
+		"path": "/alarmas"
+	},
+	{
+		"label": "Instrumentos",
+		"path": "/instrumentos"
+	},
+	{
+		"label": "Elementos",
+		"path": "/elementos"
+	}
+]
