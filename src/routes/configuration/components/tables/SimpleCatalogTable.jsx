@@ -19,9 +19,9 @@ const SimpleCatalogTable = ({ items, value1, value2 }) => {
                         <TableCell sx={{ fontWeight: "bold" }} align="left">
                             {value2}
                         </TableCell>
-                        <strong onClick={()=>navigate("incluir")}>
+                        {/*<strong onClick={()=>navigate("incluir")}>
                             agregar
-                        </strong>
+                        </strong>*/}
                         <TableCell align="left"></TableCell>
                     </TableRow>
                 </TableHead>

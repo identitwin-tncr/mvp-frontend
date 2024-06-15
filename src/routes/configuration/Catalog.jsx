@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import ContentLayout from "../../components/layout/ContentLayout";
 import SimpleCatalogTable from "./components/tables/SimpleCatalogTable";
-import { getMaterialsRequest, getMonitoringVariablesRequest } from "../../api/catalogRequest";
-import SingleButtonHeader from "../../components/header/SimpleButtonHeader";
+import { getMaterialsRequest, getMonitoringVariablesRequest } from "../../api/catalogRequests";
 
 const Catalog = () => {
 
