@@ -8,6 +8,7 @@ import {Alarms} from './routes/alarms'
 import RouteWrapper from "./routes/RouteWrapper";
 import Instruments from "./routes/instruments/Instruments";
 import {Variables} from "./routes/variables";
+import { Catalog } from "./routes/configuration";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
 						<Route path={"/alarmas"} element={<Alarms />} />
 						<Route path={"/instrumentos"} element={<Instruments/>} />
 						<Route path={"/variables"} element={<Variables/>} />
+						<Route path={"/configuracion"} element={<Catalog/>} />
 					</Route>
 				</Routes>
 			</GlobalProvider>

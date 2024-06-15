@@ -1,5 +1,9 @@
 [
 	{
+		"label":"Configuración",
+		"path": "/configuracion"
+	},
+	{
 		"label": "Variables de monitoreo",
 		"path": "/variables"
 	},
