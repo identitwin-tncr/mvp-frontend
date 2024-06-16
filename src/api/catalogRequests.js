@@ -4,7 +4,6 @@ const getMaterialsRequest = async (offset, limit) => {
     const query = offset !== undefined && limit !== undefined? 
                 `offset=${offset}&limit=${limit}`
                 : "";
-    console.log("what?")
     return await getFromAPI("/catalog/materials", query);
 }
 
