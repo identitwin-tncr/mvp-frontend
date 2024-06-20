@@ -4,10 +4,6 @@
 		"path": "/configuracion"
 	},
 	{
-		"label": "Variables de monitoreo",
-		"path": "/variables"
-	},
-	{
 		"label": "Alarmas",
 		"path": "/alarmas"
 	},
