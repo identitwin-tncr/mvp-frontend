@@ -79,11 +79,12 @@ const AlarmDetail = () => {
 			<Box
 			p={2}
 			m={1}
+			marginTop={1.5}
 			flexBasis="15%"
 			textAlign="center"
 			>
-			<Typography borderRadius={2} variant="h4" fontWeight="bold" bgcolor={alarm.status === "ACTIVE" ? "success.main" : "warning.main"} color="white">
-				{alarm.status}
+			<Typography borderRadius={2} variant="h6" fontWeight="bold" bgcolor={alarm.status === "ACTIVE" ? "success.main" : "warning.main"} color="white">
+				{alarm.status === "ACTIVE" ? "Activa" : "Revisada"}
 			</Typography>
 			</Box>
       	</Box>
@@ -158,19 +159,17 @@ const AlarmDetail = () => {
 			</Box>
 		</Box>
 		<Box
-        display="flex"
         flexDirection={isSmallScreen ? 'column' : 'row'}
         justifyContent="left"
         width="100%"
-		marginTop={2}
+		m={1}
+		marginBottom={3}
       	>
-			<Box  m={1} flexBasis="30%" textAlign="left">
 			<Typography variant="h4" fontWeight="bold">
-				Materiales afectados
+				Elementos técnicos afectados
 			</Typography>
-			</Box>
 		</Box>
-        <Box borderRadius={2} bgcolor="#A9A9A9" gap={4} alignItems="center" marginBottom={1}>
+        <Box borderRadius={2} bgcolor="#F1F1F1" gap={4} alignItems="center" marginBottom={1}>
         <Box display="flex" gap={3} alignItems="center" marginBottom={1} marginTop={1} paddingLeft={2} >
             {tableHeaders.map((header, index) => (
                 <Typography key={index} sx={{ fontWeight: "bold", flexBasis: index === 0 ? '20%' : '15%' }}>
@@ -182,17 +181,17 @@ const AlarmDetail = () => {
           <Accordion key={element.id}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ padding: '8px 16px', margin: '4px 0' }}>
                 <Box display="flex" gap={4} alignItems="center" width="100%">
-                    <Typography fontWeight="bold" flexBasis="20%" style={{ paddingRight: 16 }}>{element.elementType.value}</Typography>
-                    <Typography fontWeight="bold" flexBasis="15%" style={{ paddingRight: 16 }}>{element.code}</Typography>
-                    <Typography fontWeight="bold" flexBasis="15%" style={{ paddingRight: 16 }}>{element.elementType.technologicalUnit.value}</Typography>
-                    <Typography fontWeight="bold" flexBasis="15%" style={{ paddingRight: 16 }}>{(element.number ? element.number : "--") + " " + (element.orientation.value ? element.orientation.value : "--")}</Typography>
-                    <Typography fontWeight="bold" flexBasis="15%" style={{ paddingRight: 16 }}>{(element.cardinalPoint.value) ? element.cardinalPoint.value : "--"}</Typography>
+                    <Typography flexBasis="20%" style={{ paddingRight: 16 }}>{element.elementType.value}</Typography>
+                    <Typography flexBasis="15%" style={{ paddingRight: 16 }}>{element.code}</Typography>
+                    <Typography flexBasis="15%" style={{ paddingRight: 16 }}>{element.elementType.technologicalUnit.value}</Typography>
+                    <Typography flexBasis="15%" style={{ paddingRight: 16 }}>{(element.number ? element.number : "--") + " " + (element.orientation.value ? element.orientation.value : "--")}</Typography>
+                    <Typography flexBasis="15%" style={{ paddingRight: 16 }}>{(element.cardinalPoint.value) ? element.cardinalPoint.value : "--"}</Typography>
                 </Box>
             </AccordionSummary>
             <AccordionDetails>
               <List>
                   <Table aria-label="simple table">
-				  <TableHead bgcolor="#A9A9A9">
+				  <TableHead bgcolor="#F1F1F1">
 					  <TableRow>
 						  <TableCell sx={{ fontWeight: "bold" }} align="left">
 							  Lesión

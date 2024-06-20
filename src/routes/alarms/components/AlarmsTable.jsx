@@ -44,7 +44,7 @@ const AlarmsTable = ({ items, value1, value2 }) => {
                             <TableCell align="left">{(item.status)}</TableCell>
                             <TableCell align="left"></TableCell>
                             <TableCell align="left">
-                                <IconButton onClick={() => navigate(`/${item.id}`)}>
+                                <IconButton onClick={() => navigate("/alarmas/" + item.id)}>
                                     <EditIcon color="primary" />
                                 </IconButton>
                             </TableCell>
