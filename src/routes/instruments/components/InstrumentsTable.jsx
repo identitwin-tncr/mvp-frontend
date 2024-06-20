@@ -48,7 +48,7 @@ const InstrumentsTable = ({ items, value1, value2 }) => {
                             <TableCell align="left">{item.instrumentType.value}</TableCell>
                             <TableCell align="left"></TableCell>
                             <TableCell align="left">
-                                <IconButton onClick={() => navigate("modificar", { state: { item } })}>
+                                <IconButton onClick={() => navigate("/instrumentos/modificar/"+item.id, { state: { item } })}>
                                     <EditIcon color="primary" />
                                 </IconButton>
                             </TableCell>

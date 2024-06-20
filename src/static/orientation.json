@@ -1,0 +1,12 @@
+[
+	{
+		"id": 1,
+		"value": "Este-Oeste",
+		"code": "EO"
+	},
+	{
+		"id": 2,
+		"value": "Norte-Sur",
+		"code": "NS"
+	}
+]

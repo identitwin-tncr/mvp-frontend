@@ -41,7 +41,7 @@ const AlarmsTable = ({ items, value1, value2 }) => {
                             <TableCell align="left">{item.block.value}</TableCell>
                             <TableCell align="left">{item.instrument}</TableCell>
                             <TableCell align="left">{item.raisedDate}</TableCell>
-                            <TableCell align="left">{(item.status)}</TableCell>
+                            <TableCell align="left">{item.status === 'ACTIVE'? 'Activa': 'Revisada'}</TableCell>
                             <TableCell align="left"></TableCell>
                             <TableCell align="left">
                                 <IconButton onClick={() => navigate("/alarmas/" + item.id)}>

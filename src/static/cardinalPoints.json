@@ -1,0 +1,22 @@
+[
+	{
+		"id": 1,
+		"value": "Norte",
+		"code": "N"
+	},
+	{
+		"id": 2,
+		"value": "Sur",
+		"code": "S"
+	},
+	{
+		"id": 3,
+		"value": "Este",
+		"code": "E"
+	},
+	{
+		"id": 4,
+		"value": "Oeste",
+		"code": "O"
+	}
+]

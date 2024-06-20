@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAlarmsRequest } from "../../api/alarmRequests";
 import ContentLayout from "../../components/layout/ContentLayout";
 import AlarmsTable from "./components/AlarmsTable";
+import SimpleHeader from "../../components/header/SimpleHeader";
 
 const Alarms = () => {
 	const [alarms, setAlarms] = useState([])
@@ -17,6 +18,7 @@ const Alarms = () => {
 	})
 	return (
 		<ContentLayout>
+			<SimpleHeader title={"Alarmas"}/>
 			<AlarmsTable items={alarms}/>
 		</ContentLayout>
 	);

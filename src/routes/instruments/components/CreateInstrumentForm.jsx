@@ -44,8 +44,8 @@ const CreateInstrumentForm = ({state, setState}) => {
                     />
                     <TextField
                         required
-                        value={state.activeCode}
-                        onChange={(e) => onChangeValueHandler(state, setState, "activeCode", e.target.value)}
+                        value={state.assetCode}
+                        onChange={(e) => onChangeValueHandler(state, setState, "assetCode", e.target.value)}
                         type="text"
                         label="Código de activo (Identificador TNCR)"
                     />

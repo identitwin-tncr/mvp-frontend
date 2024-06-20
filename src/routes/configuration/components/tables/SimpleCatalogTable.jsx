@@ -5,7 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import SingleButtonHeader from "../../../../components/header/SimpleButtonHeader";
 
-const SimpleCatalogTable = ({ items, value1, value2 }) => {
+const SimpleCatalogTable = ({ items, value1, value2, catalogName }) => {
     const navigate = useNavigate();
 
     return (
@@ -19,9 +19,6 @@ const SimpleCatalogTable = ({ items, value1, value2 }) => {
                         <TableCell sx={{ fontWeight: "bold" }} align="left">
                             {value2}
                         </TableCell>
-                        {/*<strong onClick={()=>navigate("incluir")}>
-                            agregar
-                        </strong>*/}
                         <TableCell align="left"></TableCell>
                     </TableRow>
                 </TableHead>
@@ -31,7 +28,7 @@ const SimpleCatalogTable = ({ items, value1, value2 }) => {
                             <TableCell align="left">{`${item.value}`}</TableCell>
                             <TableCell align="left">{item.code}</TableCell>
                             <TableCell align="left">
-                                <IconButton onClick={() => navigate("modificar", { state: { item } })}>
+                                <IconButton onClick={() => navigate( catalogName + "/modificar/" + item.id, { state: { item } })}>
                                     <EditIcon color="primary" />
                                 </IconButton>
                             </TableCell>
@@ -45,6 +42,7 @@ const SimpleCatalogTable = ({ items, value1, value2 }) => {
 
 SimpleCatalogTable.propTypes = {
     items: PropTypes.arrayOf(PropTypes.Object),
+    catalogName: PropTypes.string
 };
 
 export default SimpleCatalogTable;

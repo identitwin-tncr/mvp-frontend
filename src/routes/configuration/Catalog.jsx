@@ -29,9 +29,9 @@ const Catalog = () => {
 	return  (
 		<ContentLayout>
 			<SingleButtonHeader buttonLabel={"Agregar material"} buttonOnClickHandler={() => navigate("/configuracion/materiales/crear")} title={"Materiales"} />
-			<SimpleCatalogTable items={materials} value1={"Material"} value2={"Código"}/>
+			<SimpleCatalogTable items={materials} value1={"Material"} value2={"Código"} catalogName={"materiales"}/>
 			<SingleButtonHeader buttonLabel={"Agregar variable"} buttonOnClickHandler={() => navigate("/configuracion/variables/crear")} title={"Variables de monitoreo"} />
-			<SimpleCatalogTable items={monitoringVariables} value1={"Variable de monitoreo"} value2={"Siglas"}/>
+			<SimpleCatalogTable items={monitoringVariables} value1={"Variable de monitoreo"} value2={"Siglas"} catalogName={"variables"}/>
 		</ContentLayout>
 	);
 };
