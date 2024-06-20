@@ -150,11 +150,32 @@ const AlarmDetail = () => {
 				<ListItemText secondary="Promedio"/>
 				</List>
 			</Box>
-			<Box m={1} flexBasis="20%" textAlign="left">
+			<Box m={1} flexBasis="19%" textAlign="left">
 				<List>
 				<ListItemText primary={alarm.varianceValue}/>
 				<Divider />
 				<ListItemText secondary="Varianza"/>
+				</List>
+			</Box>
+		</Box>
+		<Box
+        display="flex"
+        flexDirection={isSmallScreen ? 'column' : 'row'}
+        justifyContent="left"
+        width="100%"
+      	>
+			<Box m={1} flexBasis="30%" textAlign="left">
+				<List>
+					<ListItemText primary={alarm.minValue}/>
+					<Divider />
+					<ListItemText secondary="Valor mínimo"/>
+				</List>
+			</Box>
+			<Box m={1} flexBasis="40%" textAlign="left">
+				<List>
+				<ListItemText primary={alarm.maxValue}/>
+				<Divider />
+				<ListItemText secondary="Valor máximo"/>
 				</List>
 			</Box>
 		</Box>
@@ -213,8 +234,8 @@ const AlarmDetail = () => {
 						  <TableRow key={item.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 							  <TableCell align="left">{`${item.value}`}</TableCell>
 							  <TableCell align="left">{item.material}</TableCell>
-							  <TableCell align="left">{item.minRange.value + ((item.minRange.affected)? "- Sobrepasado": "")}</TableCell>
-							  <TableCell align="left">{item.maxRange.value + ((item.maxRange.affected)? "- Sobrepasado": "")}</TableCell>
+							  <TableCell align="left">{item.minRange.value + ((item.minRange.affected)? " - Sobrepasado": "")}</TableCell>
+							  <TableCell align="left">{item.maxRange.value + ((item.maxRange.affected)? " - Sobrepasado": "")}</TableCell>
 							  <TableCell align="left"></TableCell>
 						  </TableRow>
 					  ))}
