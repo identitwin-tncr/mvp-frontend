@@ -3,6 +3,7 @@ import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer,
 import PropTypes from "prop-types";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
+import { MoreVert } from "@mui/icons-material";
 
 const AlarmsTable = ({ items, value1, value2 }) => {
     const navigate = useNavigate();
@@ -45,7 +46,7 @@ const AlarmsTable = ({ items, value1, value2 }) => {
                             <TableCell align="left"></TableCell>
                             <TableCell align="left">
                                 <IconButton onClick={() => navigate("/alarmas/" + item.id)}>
-                                    <EditIcon color="primary" />
+                                    <MoreVert color="primary" />
                                 </IconButton>
                             </TableCell>
                         </TableRow>
