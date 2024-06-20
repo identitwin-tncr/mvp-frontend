@@ -1,14 +1,17 @@
 import {useParams} from "react-router-dom";
+import ContentLayout from "../../components/layout/ContentLayout";
 
 const AlarmDetail = () => {
 	const params = useParams();
 	
 	return (
-		<p>
-			<strong>
-				Alarm detail {params.id}
-			</strong>
-		</p>
+		<ContentLayout>
+			<p>
+				<strong>
+					Alarm detail {params.id}
+				</strong>
+			</p>
+		</ContentLayout>
 	);
 };
 

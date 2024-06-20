@@ -1,0 +1,18 @@
+[
+	{
+		"id": 1,
+		"value": "Muro"
+	},
+	{
+		"id": 2,
+		"value": "Vigas Transversales"
+	},
+	{
+		"id": 3,
+		"value": "Vigas Longitudinales"
+	},
+	{
+		"id": 4,
+		"value": "Vigas compuestas"
+	}
+]

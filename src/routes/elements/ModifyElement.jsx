@@ -1,11 +1,15 @@
+import {useParams} from "react-router-dom";
+import ContentLayout from "../../components/layout/ContentLayout";
 
 const ModifyElement = () => {
+	const params = useParams();
+	
 	return (
-		<p>
+		<ContentLayout>
 			<strong>
-				Modify Element
+				Modify Element {params.id}
 			</strong>
-		</p>
+		</ContentLayout>
 	);
 };
 

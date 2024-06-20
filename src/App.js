@@ -3,12 +3,12 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {GlobalProvider} from "./context/Provider";
 import {Dashboard} from "./routes/dashboard";
-import {ElementDetail, Elements, ModifyElement} from "./routes/elements";
-import {Alarms} from './routes/alarms'
+import {CreateElement, ElementDetail, Elements, ModifyElement} from "./routes/elements";
+import {AlarmDetail, Alarms} from './routes/alarms'
 import RouteWrapper from "./routes/RouteWrapper";
-import Instruments from "./routes/instruments/Instruments";
-import {Variables} from "./routes/variables";
-import { Catalog } from "./routes/configuration";
+import {Instruments} from "./routes/instruments";
+import {Catalog, CreateCatalog} from "./routes/configuration";
+import CreateInstrument from "./routes/instruments/CreateInstrument";
 
 function App() {
     return (
@@ -20,10 +20,15 @@ function App() {
 						<Route path={"/elementos"} element={<Elements/> } />
 						<Route path={"/elementos/:id"} element={<ElementDetail />} />
 						<Route path={"/elementos/modificar/:id"} element={<ModifyElement/>} />
+						<Route path={"/elementos/agregar"} element={<CreateElement />} />
 						<Route path={"/alarmas"} element={<Alarms />} />
+						<Route path={"/alarmas/:id"} element={<AlarmDetail />}/>
 						<Route path={"/instrumentos"} element={<Instruments/>} />
-						<Route path={"/variables"} element={<Variables/>} />
+						<Route path={"/instrumentos/crear"} element={<CreateInstrument/>} />
 						<Route path={"/configuracion"} element={<Catalog/>} />
+						<Route path={"/configuracion/bloques/crear"} element={<CreateCatalog catalogName={"bloque"}/>} />
+						<Route path={"/configuracion/materiales/crear"} element={<CreateCatalog catalogName={"material"}/>} />
+						<Route path={"/configuracion/variables/crear"} element={<CreateCatalog catalogName={"variable de monitoreo"}/>} />
 					</Route>
 				</Routes>
 			</GlobalProvider>

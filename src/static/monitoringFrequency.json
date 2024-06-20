@@ -1,0 +1,18 @@
+[
+	{
+		"id": 1,
+		"value": "Cada hora"
+	},
+	{
+		"id": 2,
+		"value": "Cada dos horas"
+	},
+	{
+		"id": 3,
+		"value": "Cada seis horas"
+	},
+	{
+		"id": 4,
+		"value": "Cada día"
+	}
+]
