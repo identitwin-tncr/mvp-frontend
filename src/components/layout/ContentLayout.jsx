@@ -8,7 +8,8 @@ import PropTypes from "prop-types";
  * @returns {Element}
  * @constructor
  */
-const ContentLayout = ({ children }) => {
+const ContentLayout = ({ children, pgap}) => {
+    console.log("pgap:" +  pgap)
     return (
         <Box
             sx={{
@@ -18,7 +19,7 @@ const ContentLayout = ({ children }) => {
             }}
         >
             <Paper elevation={0} sx={{ p: 4, width: "100%", borderRadius: 2 }}>
-                <Stack gap={4}>{children}</Stack>
+                <Stack gap={pgap==undefined? 4 : pgap}>{children}</Stack>
             </Paper>
         </Box>
     );
