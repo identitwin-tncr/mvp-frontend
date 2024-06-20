@@ -3,11 +3,7 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {GlobalProvider} from "./context/Provider";
 import {Dashboard} from "./routes/dashboard";
-<<<<<<< HEAD
 import {CreateElement, ElementDetail, Elements, ModifyElement} from "./routes/elements";
-=======
-import {ElementDetail, Elements, ModifyElement} from "./routes/elements";
->>>>>>> 8bdb0ad04a0ec7fd8c9b14e8757c0314c8800cbd
 import {AlarmDetail, Alarms} from './routes/alarms'
 import RouteWrapper from "./routes/RouteWrapper";
 import {Instruments} from "./routes/instruments";
