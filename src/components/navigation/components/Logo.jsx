@@ -1,9 +1,10 @@
-import {useNavigate} from "react-router-dom";
-import {Button, Stack, Typography} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Button, Stack } from "@mui/material";
+import logoImage from "../../../logo.png";
 
 const Logo = () => {
-	const navigate = useNavigate();
-	
+    const navigate = useNavigate();
+
     return (
         <Stack
             component={Button}
@@ -17,11 +18,17 @@ const Logo = () => {
                 "&:hover": {
                     backgroundColor: "#fff",
                 },
+                padding: 0,
             }}
         >
-            <Typography variant="h3" fontWeight="bold" color="primary.main">
-                TNCR
-            </Typography>
+            <img 
+                src={logoImage} 
+                alt="Logo"
+                style={{
+                    width: 'auto',
+                    height: '50%',
+                }}
+            />
         </Stack>
     );
 };
