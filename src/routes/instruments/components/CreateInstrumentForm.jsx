@@ -2,19 +2,39 @@ import {Stack, TextField} from "@mui/material";
 import {onChangeValueHandler} from "../../../utils/formUtil";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
-import blocksDummy from "../../../static/blocks.json";
-import frequencyDummy from "../../../static/monitoringFrequency.json";
 import SelectInput from "../../../components/input/SelectInput";
+
+import { getMonitoringFrequenciesRequest, getBlocksRequest } from "../../../api/catalogRequests";
 
 const CreateInstrumentForm = ({state, setState}) => {
 	const [blocks, setBlocks] = useState([]);
 	const [monitoringFrequencies, setMonitoringFrequencies] = useState([]);
 	
+    const fetchBlocks = async () => {
+        getBlocksRequest().then((response) => {
+            let blocksData = response.items.map(item => ({
+                value: item.id,
+                label: item.value
+            }));
+            setBlocks(blocksData);
+        }).catch(err => console.log(err));
+    }
+
+    const fetchMonitoringFrequencies = async () => {
+        getMonitoringFrequenciesRequest().then((response) => {
+            let monitoringFrequenciesData = response.items.map(item => ({
+                value: item.id,
+                label: item.value
+            }));
+            setMonitoringFrequencies(monitoringFrequenciesData);
+        }).catch(err => console.log(err));
+    
+    }
+
 	useEffect(() => {
-		// TODO: ADD BLOCKS LIST RETRIEVAL FROM DB
-		setBlocks(blocksDummy);
-		// TODO: ADD MONITORING LIST RETRIEVAL FROM DB
-		setMonitoringFrequencies(frequencyDummy);
+        fetchBlocks();
+        fetchMonitoringFrequencies();
+		
 	}, []);
 	
 	return (
