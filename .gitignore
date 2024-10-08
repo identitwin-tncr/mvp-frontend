@@ -24,3 +24,6 @@ yarn-error.log*
 .idea
 package-lock.json
 pnpm-lock.yaml
+
+# Prevent 3d models from being uploaded to git
+.ifc
