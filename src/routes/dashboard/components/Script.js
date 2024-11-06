@@ -37,61 +37,72 @@ class ThreeExperience {
         this.renderer.setAnimationLoop(this.render.bind(this));
         this.container.appendChild(this.renderer.domElement);
 
-        /* Loaders */
+        // Cargar los modelos
         const glbLoader = new GLTFLoader();
         const dracoLoader = new DRACOLoader();
         dracoLoader.setDecoderPath(process.env.PUBLIC_URL + "/draco/"); // Asegúrate de que esta ruta sea correcta
         glbLoader.setDRACOLoader(dracoLoader);
 
-        glbLoader.load(
-            process.env.PUBLIC_URL + "/model2.glb",
-            (gltf) => {
-                gltf.scene.traverse((node) => {
-                    if (node.isMesh) {
-                        // Temporal solution for the color of the model
-                        let name = node.name.toString();
-                        let color = 0xa1a4a7;
-                        let opacity = 1;
-                        let transparent = false;
-                        console.log(name);
+        this.model1 = null;
+        this.model2 = null;
+        this.model3 = null;
+        let currentModel;
 
-                        if (
-                            name.includes("Furniture") ||
-                            name.includes("Columns")
-                        ) {
-                            color = 0xefe7cc;
-                        } else if (name.includes("Roof")) {
-                            color = 0xff7b85;
-                        } else if (name.includes("Furniture")) {
-                        } else if (
-                            name.includes("Ventana") ||
-                            name.includes("arco")
-                        ) {
-                            color = 0xe0ffff;
-                            transparent = true;
-                            opacity = 0.5;
-                        }
+        glbLoader.load(process.env.PUBLIC_URL + "/model2.glb", (gltf) => {
+            let model = gltf.scene;
 
-                        node.material = new THREE.MeshStandardMaterial({
-                            color: color,
-                            roughness: 0.5,
-                            metalness: 0.5,
-                            opacity: opacity,
-                            transparent: transparent,
-                        });
-                    }
-                });
-                gltf.scene.scale.set(0.1, 0.1, 0.1);
-                this.scene.add(gltf.scene);
-            },
-            undefined,
-            (error) => {
-                console.error(
-                    "An error occurred while loading the model:",
-                    error
-                );
+            model.traverse((node) => {
+                if (node.isMesh) {
+                    node.material = new THREE.MeshStandardMaterial({
+                        color: 0x00ff00,
+                        roughness: 0.5,
+                        metalness: 0.5,
+                        opacity: 0.5,
+                        transparent: true,
+                    });
+                }
+            });
+            model.scale.set(0.1, 0.1, 0.1);
+            if (!currentModel) {
+                this.model1 = model.clone();
+                this.switchModel(1);
             }
-        );
+        });
+
+        glbLoader.load(process.env.PUBLIC_URL + "/model2.glb", (gltf) => {
+            let model = gltf.scene;
+
+            model.traverse((node) => {
+                if (node.isMesh) {
+                    node.material = new THREE.MeshStandardMaterial({
+                        color: 0xff0000,
+                        roughness: 0.5,
+                        metalness: 0.5,
+                        opacity: 0.5,
+                        transparent: true,
+                    });
+                }
+            });
+            model.scale.set(0.1, 0.1, 0.1);
+            this.model2 = model.clone();
+        });
+
+        glbLoader.load(process.env.PUBLIC_URL + "/model2.glb", (gltf) => {
+            let model = gltf.scene;
+            model.traverse((node) => {
+                if (node.isMesh) {
+                    node.material = new THREE.MeshStandardMaterial({
+                        color: 0x0000ff,
+                        roughness: 0.5,
+                        metalness: 0.5,
+                        opacity: 0.5,
+                        transparent: true,
+                    });
+                }
+            });
+            model.scale.set(0.1, 0.1, 0.1);
+            this.model3 = model.clone();
+        });
 
         /* Lights */
         const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 2.5);
@@ -125,6 +136,49 @@ class ThreeExperience {
         document.getElementById("container3D").appendChild(this.container);
     }
 
+    switchModel(index) {
+        switch (index) {
+            case 1:
+                if (this.currentModel === this.model1) {
+                    return;
+                }
+                if (this.model1 === null) {
+                    return;
+                }
+                this.scene.remove(this.currentModel);
+                this.currentModel = this.model1.clone();
+                this.scene.add(this.currentModel);
+
+                break;
+            case 2:
+                if (this.currentModel === this.model2) {
+                    return;
+                }
+                if (this.model2 === null) {
+                    return;
+                }
+                this.scene.remove(this.currentModel);
+                this.currentModel = this.model2.clone();
+                this.scene.add(this.currentModel);
+
+                break;
+            case 3:
+                if (this.currentModel === this.model3) {
+                    return;
+                }
+                if (this.model3 === null) {
+                    return;
+                }
+                this.scene.remove(this.currentModel);
+                this.currentModel = this.model3.clone();
+                this.scene.add(this.currentModel);
+
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
         this.renderer.render(this.scene, this.camera);
     }
@@ -142,58 +196,6 @@ class ThreeExperience {
         this.container.remove();
     }
 
-    // On Mouse Methods //
-
-    // onMouseMove(event) {
-    //     // Calcula la posición del ratón en coordenadas normalizadas del dispositivo (-1 a +1) para ambos componentes.
-    //     this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    //     // Actualiza el raycaster con la cámara y la posición del ratón.
-    //     this.raycaster.setFromCamera(this.mouse, this.camera);
-
-    //     // Calcula los objetos que intersectan con el rayo.
-    //     const intersects = this.raycaster.intersectObjects(
-    //         this.scene.children,
-    //         true
-    //     );
-
-    //     if (intersects.length > 0) {
-    //         const object = intersects[0].object;
-
-    //         if (this.hoveredObject !== object) {
-    //             if (this.hoveredObject) {
-    //                 // Restablece el material del objeto previamente resaltado.
-    //                 this.hoveredObject.material.emissive.setHex(
-    //                     this.hoveredObject.currentHex
-    //                 );
-    //             }
-
-    //             // Guarda el color actual del objeto.
-    //             this.hoveredObject = object;
-    //             this.hoveredObject.currentHex =
-    //                 this.hoveredObject.material.emissive.getHex();
-
-    //             // Establece el nuevo color de emisión para el objeto resaltado.
-    //             const currentColor = new THREE.Color(
-    //                 this.hoveredObject.currentHex
-    //             );
-    //             const hsl = {};
-    //             currentColor.getHSL(hsl);
-    //             hsl.l = Math.min(1, hsl.l + 0.1); // Increase lightness by 20%
-    //             const newColor = new THREE.Color().setHSL(hsl.h, hsl.s, hsl.l);
-    //             this.hoveredObject.material.emissive.setHex(newColor.getHex());
-    //         }
-    //     } else {
-    //         if (this.hoveredObject) {
-    //             // Restablece el material del objeto previamente resaltado.
-    //             this.hoveredObject.material.emissive.setHex(
-    //                 this.hoveredObject.currentHex
-    //             );
-    //             this.hoveredObject = null;
-    //         }
-    //     }
-    // }
     onMouseClick(event) {
         // Update the mouse variable with normalized device coordinates
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
