@@ -1,253 +1,160 @@
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ContentLayout from '../../components/layout/ContentLayout';
-import { Box, Typography, useMediaQuery, CircularProgress, Accordion, AccordionSummary, AccordionDetails, TableHead, TableRow, TableCell, List, ListItemText, Divider, Table, TableBody } from '@mui/material';
+import AfectedElementsTable from './components/AfectedElementsTable';
+import {
+	Box,
+	Typography,
+	CircularProgress,
+	Alert,
+	Card,
+	Button,
+} from '@mui/material';
 import { getAlarmElementsRequest, getAlarmRequest } from '../../api/alarmRequests';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useTheme } from '@mui/material/styles';
 
 const AlarmDetail = () => {
-  const params = useParams();
-  const [alarm, setAlarm] = useState(null);
-  const [elements, setElements] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+	const { id } = useParams();
+	const [alarm, setAlarm] = useState(null);
+	const [elements, setElements] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    getAlarmRequest(params.id)
-      .then((response) => {
-        setAlarm(response);
-      })
-      .catch((err) => {
-        console.error(err);
-    });
+	const data = [
+		{id: 1, name: "Ceramica", rangoMinimo: "0 Luxes", rangoMaximo: "900 Luxes", sobrepasado: true},
+		{id: 2, name: "Madera", rangoMinimo: "0 Luxes", rangoMaximo: "900 Luxes", sobrepasado: true},
+		{id: 3, name: "Metal", rangoMinimo: "0 Luxes", rangoMaximo: "850 Luxes", sobrepasado: false}
+	]
 
-    getAlarmElementsRequest(params.id)
-    .then((response) => {
-      setElements(response);
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.error(err);
-      setLoading(false);
-    });
-  }, [params.id]);
+	useEffect(() => {
+		Promise.all([getAlarmRequest(id), getAlarmElementsRequest(id)])
+			.then(([alarmData, elementsData]) => {
+				setAlarm(alarmData);
+				setElements(elementsData);
+				setLoading(false);
 
-  if (loading) {
-    return (
-      <ContentLayout>
-        <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-          <CircularProgress />
-        </Box>
-      </ContentLayout>
-    );
-  }
+				console.log("Alarm data received:", alarmData);
+				console.log("Elements data received:", elementsData);
+			})
+			.catch((err) => {
+				console.error(err);
+				setLoading(false);
+			});
+	}, [id]);
 
-  if (!alarm) {
-    return (
-      <ContentLayout>
-        <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-          <Typography variant="h4">No se encontraron datos de la alarma.</Typography>
-        </Box>
-      </ContentLayout>
-    );
-  }
-  
-  const tableHeaders = ["Elemento", "Código", "Unidad técnica", "Orientación", "Punto cardinal"];
-  const table2Headers = ["Lesión", "Material", "Rango máximo", "Rango mínimo", "Afectado (T/F)"];
+	if (loading) {
+		return (
+			<ContentLayout>
+				<Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+					<CircularProgress />
+				</Box>
+			</ContentLayout>
+		);
+	}
 
-  return (
-    <ContentLayout pgap={0}>
-        <Box
-        display="flex"
-        flexDirection={isSmallScreen ? 'column' : 'row'}
-        justifyContent="left"
-        width="100%"
-      	>
-			<Box m={1} flexBasis="30%" textAlign="left">
-			<Typography variant="h4" fontWeight="bold">
-				Detalle de alarma
-			</Typography>
+	if (!alarm || !elements) {
+		return (
+			<ContentLayout>
+				<Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+					<Typography variant="h4">No se encontraron datos de la alarma.</Typography>
+				</Box>
+			</ContentLayout>
+		);
+	}
+
+	return (
+		<ContentLayout>
+			<Box display="flex" alignItems="center" mb={4}>
+				<Typography variant="h4" fontWeight="bold" sx={{ marginRight: 2 }}>
+					Alarma #{alarm.id}
+				</Typography>
+				<Alert
+					severity={alarm.status === "ACTIVE" ? "warning" : "info"}
+					sx={{
+						fontWeight: "bold",
+						textTransform: "uppercase",
+						justifyContent: "center",
+						alignItems: "center",
+						padding: "0.01rem 0.5rem",
+						borderRadius: "30px",
+						fontSize: "0.9rem",
+					}}
+				>
+					{alarm.status === "ACTIVE" ? "Activa" : "Revisada"}
+				</Alert>
 			</Box>
-			<Box p={2} m={1} flexBasis="40%" textAlign="right">
-			<Typography variant="h4" fontWeight="bold">
-				Estado
-			</Typography>
+			<Box display="flex" alignItems="flex-start" gap={2}>
+				{/* Detalles principales */}
+				<Box display="flex" gap={4} flexWrap="wrap" mb={4}>
+					<Box>
+						<Typography variant="body2" color="#9F9F9F">
+							Variable
+						</Typography>
+						<Typography variant="body1">{alarm.variable.value}</Typography>
+					</Box>
+					<Box>
+						<Typography variant="body2" color="#9F9F9F">
+							Bloque
+						</Typography>
+						<Typography>{alarm.block.value}</Typography>
+					</Box>
+					<Box>
+						<Typography variant="body2" color="#9F9F9F">
+							Fecha
+						</Typography>
+						<Typography>{new Date(alarm.raisedDate).toLocaleDateString()}</Typography>
+					</Box>
+					<Box sx={{ flexBasis: "100%" }} />
+					<Box display="flex" justifyContent="space-between" alignItems="center" gap={4}>
+						<Box>
+							<Typography variant="body2" color="#9F9F9F">
+								Instrumento
+							</Typography>
+							<Typography>{alarm.instrument}</Typography>
+						</Box>
+						<Box>
+							<Typography variant="body2" color="#9F9F9F">
+								Hora
+							</Typography>
+							<Typography>
+								{new Date(alarm.raisedDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+							</Typography>
+						</Box>
+					</Box>
+				</Box>
+				<Card variant="outlined" sx={{ padding: 2, minWidth: 200 }}>
+					<Typography variant="body2" fontWeight="bold" color="#9F9F9F" mb={2}>
+						Valores de referencia
+					</Typography>
+					<Typography mb={1}>
+						Valor máximo: <strong>{alarm.maxValue} {alarm.variable.unit}</strong>
+					</Typography>
+					<Typography>
+						Valor mínimo: <strong>{alarm.minValue} {alarm.variable.unit}</strong>
+					</Typography>
+				</Card>
 			</Box>
-			<Box
-			p={2}
-			m={1}
-			marginTop={1.5}
-			flexBasis="15%"
-			textAlign="center"
-			>
-			<Typography borderRadius={2} variant="h6" fontWeight="bold" bgcolor={alarm.status === "ACTIVE" ? "success.main" : "warning.main"} color="white">
-				{alarm.status === "ACTIVE" ? "Activa" : "Revisada"}
-			</Typography>
+			<Box>
+				<Typography variant="h5" fontWeight="bold">Elementos afectados</Typography>
+				<AfectedElementsTable data={data}/>
 			</Box>
-      	</Box>
-		<Box
-        display="flex"
-        flexDirection={isSmallScreen ? 'column' : 'row'}
-        justifyContent="left"
-        width="100%"
-      	>
-			<Box m={1} flexBasis="30%" textAlign="left">
-				<List>
-					<ListItemText primary={alarm.block.value}/>
-					<Divider />
-					<ListItemText secondary="Bloque"/>
-				</List>
+			<Box display="flex" justifyContent="flex-end" alignItems="right">
+				<Button
+					variant="contained"
+					onClick={() => navigate(`/alarmas/${alarm.id}/tecnicalDetails`)}
+					sx={{
+						backgroundColor: "#143846",
+						"&:hover": {
+							backgroundColor: "#548CA3",
+						},
+						borderRadius: "16px",
+					}}
+				>
+					Ver detalles técnicos
+				</Button>
 			</Box>
-			<Box m={1} flexBasis="40%" textAlign="left">
-				<List>
-				<ListItemText primary={new Date(alarm.from).toLocaleString() + " - " + new Date(alarm.to).toLocaleString()}/>
-				<Divider />
-				<ListItemText secondary="Rango de fechas"/>
-				</List>
-			</Box>
-		</Box>
-		<Box
-        display="flex"
-        flexDirection={isSmallScreen ? 'column' : 'row'}
-        justifyContent="left"
-        width="100%"
-      	>
-			<Box m={1} flexBasis="30%" textAlign="left">
-				<List>
-					<ListItemText primary={new Date(alarm.raisedDate).toLocaleString()}/>
-					<Divider />
-					<ListItemText secondary="Fecha de alarma"/>
-				</List>
-			</Box>
-			<Box m={1} flexBasis="40%" textAlign="left">
-				<List>
-				<ListItemText primary={alarm.variable.value}/>
-				<Divider />
-				<ListItemText secondary="Variable en riesgo"/>
-				</List>
-			</Box>
-		</Box>
-		<Box
-        display="flex"
-        flexDirection={isSmallScreen ? 'column' : 'row'}
-        justifyContent="left"
-        width="100%"
-      	>
-			<Box m={1} flexBasis="30%" textAlign="left">
-				<List>
-					<ListItemText primary={alarm.instrument}/>
-					<Divider />
-					<ListItemText secondary="Instrumento asociado"/>
-				</List>
-			</Box>
-			<Box m={1} flexBasis="20%" textAlign="left">
-				<List>
-				<ListItemText primary={alarm.averageValue}/>
-				<Divider />
-				<ListItemText secondary="Promedio"/>
-				</List>
-			</Box>
-			<Box m={1} flexBasis="19%" textAlign="left">
-				<List>
-				<ListItemText primary={alarm.varianceValue}/>
-				<Divider />
-				<ListItemText secondary="Varianza"/>
-				</List>
-			</Box>
-		</Box>
-		<Box
-        display="flex"
-        flexDirection={isSmallScreen ? 'column' : 'row'}
-        justifyContent="left"
-        width="100%"
-      	>
-			<Box m={1} flexBasis="30%" textAlign="left">
-				<List>
-					<ListItemText primary={alarm.minValue}/>
-					<Divider />
-					<ListItemText secondary="Valor mínimo"/>
-				</List>
-			</Box>
-			<Box m={1} flexBasis="40%" textAlign="left">
-				<List>
-				<ListItemText primary={alarm.maxValue}/>
-				<Divider />
-				<ListItemText secondary="Valor máximo"/>
-				</List>
-			</Box>
-		</Box>
-		<Box
-        flexDirection={isSmallScreen ? 'column' : 'row'}
-        justifyContent="left"
-        width="100%"
-		m={1}
-		marginBottom={3}
-      	>
-			<Typography variant="h4" fontWeight="bold">
-				Elementos técnicos afectados
-			</Typography>
-		</Box>
-        <Box borderRadius={2} bgcolor="#F1F1F1" gap={4} alignItems="center" marginBottom={1}>
-        <Box display="flex" gap={3} alignItems="center" marginBottom={1} marginTop={1} paddingLeft={2} >
-            {tableHeaders.map((header, index) => (
-                <Typography key={index} sx={{ fontWeight: "bold", flexBasis: index === 0 ? '20%' : '15%' }}>
-                    {header}
-                </Typography>
-            ))}
-        </Box>
-        {elements.map((element) => (
-          <Accordion key={element.id}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ padding: '8px 16px', margin: '4px 0' }}>
-                <Box display="flex" gap={4} alignItems="center" width="100%">
-                    <Typography flexBasis="20%" style={{ paddingRight: 16 }}>{element.elementType.value}</Typography>
-                    <Typography flexBasis="15%" style={{ paddingRight: 16 }}>{element.code}</Typography>
-                    <Typography flexBasis="15%" style={{ paddingRight: 16 }}>{element.elementType.technologicalUnit.value}</Typography>
-                    <Typography flexBasis="15%" style={{ paddingRight: 16 }}>{(element.number ? element.number : "--") + " " + (element.orientation.value ? element.orientation.value : "--")}</Typography>
-                    <Typography flexBasis="15%" style={{ paddingRight: 16 }}>{(element.cardinalPoint.value) ? element.cardinalPoint.value : "--"}</Typography>
-                </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <List>
-                  <Table aria-label="simple table">
-				  <TableHead bgcolor="#F1F1F1">
-					  <TableRow>
-						  <TableCell sx={{ fontWeight: "bold" }} align="left">
-							  Lesión
-						  </TableCell>
-						  <TableCell sx={{ fontWeight: "bold" }} align="left">
-							  Material
-						  </TableCell>
-						  <TableCell sx={{ fontWeight: "bold" }} align="left">
-							  Rango mínimo
-						  </TableCell>
-						  <TableCell sx={{ fontWeight: "bold" }} align="left">
-							  Rango máximo
-						  </TableCell>
-						  <TableCell align="left"></TableCell>
-					  </TableRow>
-				  </TableHead>
-				  <TableBody>
-                {element.wounds.map((item) => (
-						  <TableRow key={item.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-							  <TableCell align="left">{`${item.value}`}</TableCell>
-							  <TableCell align="left">{item.material}</TableCell>
-							  <TableCell align="left">{item.minRange.value + ((item.minRange.affected)? " - Sobrepasado": "")}</TableCell>
-							  <TableCell align="left">{item.maxRange.value + ((item.maxRange.affected)? " - Sobrepasado": "")}</TableCell>
-							  <TableCell align="left"></TableCell>
-						  </TableRow>
-					  ))}
-				  </TableBody>
-			  </Table>
-              </List>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-		</Box>
-    </ContentLayout>
-  );
+		</ContentLayout>
+	);
 };
 
 export default AlarmDetail;

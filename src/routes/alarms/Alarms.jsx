@@ -86,16 +86,27 @@ const Alarms = () => {
 
     return (
         <Container>
-            <Typography
-                variant="h1"
-                sx={{
-                    color: "#143846",
-                    fontSize: "2.5rem",
-                    fontWeight: 700,
-                }}
-            >
-                Alarmas
-            </Typography>
+            <Box>
+                <Typography
+                    variant="body2"
+                    sx={{
+                        color: "#9F9F9F",
+                        marginBottom: 1,
+                    }}
+                >
+                    Alarmas
+                </Typography>
+                <Typography
+                    variant="h1"
+                    sx={{
+                        color: "#143846", 
+                        fontSize: "2.5rem",
+                        fontWeight: 700, 
+                    }}
+                >
+                    Alarmas
+                </Typography>
+            </Box>
             <Typography
                 variant="h7"
                 sx={{

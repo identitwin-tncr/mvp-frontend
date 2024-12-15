@@ -81,7 +81,9 @@ const AlarmsTable = ({ items }) => {
                                         textTransform: "uppercase",
                                         justifyContent: "center",
                                         alignItems: "center",
-                                        padding: "0.5rem",
+                                        padding: "0.01rem 0.5rem",
+						                borderRadius: "30px",
+						                fontSize: "0.9rem"
                                     }}
                                 >
                                     {item.status === "ACTIVE" ? "Activa" : "Revisada"}

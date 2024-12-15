@@ -4,11 +4,12 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {GlobalProvider} from "./context/Provider";
 import {Dashboard} from "./routes/dashboard";
 import {CreateElement, ElementDetail, Elements, ModifyElement} from "./routes/elements";
-import {AlarmDetail, Alarms} from './routes/alarms'
+import {AlarmDetail, Alarms, AlarmTecnicalDetails} from './routes/alarms'
 import RouteWrapper from "./routes/RouteWrapper";
 import {Instruments, ModifyInstrument} from "./routes/instruments";
 import {Catalog, CreateCatalog, ModifyDeleteCatalog} from "./routes/configuration";
 import CreateInstrument from "./routes/instruments/CreateInstrument";
+import { element } from "prop-types";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
 						<Route path={"/elementos/crear"} element={<CreateElement />} />
 						<Route path={"/alarmas"} element={<Alarms />} />
 						<Route path={"/alarmas/:id"} element={<AlarmDetail />}/>
+						<Route path={"/alarmas/:id/tecnicalDetails"} element={<AlarmTecnicalDetails />}/>
 						<Route path={"/instrumentos"} element={<Instruments/>} />
 						<Route path={"/instrumentos/crear"} element={<CreateInstrument/>} />
 						<Route path={"/instrumentos/modificar/:id"} element={<ModifyInstrument/>} />
