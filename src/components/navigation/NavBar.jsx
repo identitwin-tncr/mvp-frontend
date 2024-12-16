@@ -16,7 +16,7 @@ const NavBar = () => {
                 component="nav"
                 position="sticky"
                 elevation={0}
-                sx={{ backgroundColor: "black", px: { lg: 20, md: 10, xs: 2 }, pt: 1, pb: 2 }}
+                sx={{ backgroundColor: "#143846", px: { lg: 20, md: 10, xs: 2 }, pt: 1, pb: 2 }}
             >
                 <Toolbar sx={{ justifyContent: "space-between" }}>
                     <Logo navigate={navigate} />

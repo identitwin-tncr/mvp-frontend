@@ -1,7 +1,17 @@
 [
 	{
-		"label":"Configuración",
-		"path": "/configuracion"
+		"label": "Configuración",
+		"path": "/configuracion",
+		"children": [
+			{
+				"label": "Materiales",
+				"path": "/configuracion/materiales"
+			},
+			{
+				"label": "Variables de Monitoreo",
+				"path": "/configuracion/variables-monitoreo"
+			}
+		]
 	},
 	{
 		"label": "Alarmas",
