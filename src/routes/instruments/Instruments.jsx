@@ -8,6 +8,7 @@ import SelectItem from "../../components/input/SelectInput";
 import { getInstrumentsRequest } from "../../api/instrumentRequests";
 import { getBlocksRequest } from "../../api/catalogRequests";
 import { useNavigate } from "react-router-dom";
+import { Breadcrumbs, Box, Link } from "@mui/material";
 
 const Instruments = () => {
     const [instruments, setInstruments] = useState([]);
@@ -58,12 +59,30 @@ const Instruments = () => {
 
     return (
         <ContentLayout>
-            <SingleButtonHeader 
-                buttonLabel={"Agregar instrumento"} 
-                buttonOnClickHandler={() => navigate("/instrumentos/crear")} 
-                title={"Instrumentos de medición"} 
+            <Box>
+                <Breadcrumbs aria-label="breadcrumb" sx={{ marginBottom: 2, color: "#9F9F9F" }}>
+                    <Link
+                        underline="hover"
+                        color="inherit"
+                        sx={{ cursor: "pointer" }}
+                    >
+                        Instrumentos
+                    </Link>
+                    <Link
+                        underline="hover"
+                        color="inherit"
+                        sx={{ cursor: "pointer", color: "black" }}
+                    >
+                        Instrumentos de medición
+                    </Link>
+                </Breadcrumbs>
+            </Box>
+            <SingleButtonHeader
+                buttonLabel={"Agregar instrumento"}
+                buttonOnClickHandler={() => navigate("/instrumentos/crear")}
+                title={"Instrumentos de medición"}
             />
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', width:'45%' }}>
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', width: '45%' }}>
                 <SelectItem
                     label="Bloque"
                     items={blocks}
