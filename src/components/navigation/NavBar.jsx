@@ -8,7 +8,6 @@ const NavBar = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const items = getMenuItems(location.pathname, navigate)
-	console.log(items)
 	
 	return (
 		<Box sx={{ display: "flex", mb: 10, mx: { lg: -20, md: -10, xs: -4 } }}>

@@ -7,7 +7,7 @@ import {CreateElement, ElementDetail, Elements, ModifyElement} from "./routes/el
 import {AlarmDetail, Alarms, AlarmTecnicalDetails} from './routes/alarms'
 import RouteWrapper from "./routes/RouteWrapper";
 import {Instruments, ModifyInstrument} from "./routes/instruments";
-import {Catalog, CreateCatalog, ModifyDeleteCatalog, MaterialsCatalog, VariablesCatalog} from "./routes/configuration";
+import {Catalog, CreateCatalog, ModifyDeleteCatalog, MaterialsCatalog, VariablesCatalog, CreateVariables} from "./routes/configuration";
 import CreateInstrument from "./routes/instruments/CreateInstrument";
 import { element } from "prop-types";
 
@@ -34,7 +34,7 @@ function App() {
 						<Route path={"/configuracion/bloques/modificar/:id"} element={<ModifyDeleteCatalog catalogName={"bloque"}/>} />
 						<Route path={"/configuracion/materiales/crear"} element={<CreateCatalog catalogName={"material"}/>} />
 						<Route path={"/configuracion/materiales/modificar/:id"} element={<ModifyDeleteCatalog catalogName={"material"}/>} />
-						<Route path={"/configuracion/variables/crear"} element={<CreateCatalog catalogName={"variable de monitoreo"}/>} />
+						<Route path={"/configuracion/variables/crear"} element={<CreateVariables />} />
 						<Route path={"/configuracion/variables/modificar/:id"} element={<ModifyDeleteCatalog catalogName={"variable de monitoreo"}/>} />
 
 					</Route>

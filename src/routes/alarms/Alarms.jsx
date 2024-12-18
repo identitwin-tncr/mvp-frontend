@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import { color } from "chart.js/helpers";
 
 const Alarms = () => {
+
+    // TODO: Agregar funcionalidad y paginacion
     const [alarms, setAlarms] = useState([]);
     const [monitoringVariables, setMonitoringVariables] = useState([]);
     const [alarmBlock, setAlarmBlock] = useState([]);

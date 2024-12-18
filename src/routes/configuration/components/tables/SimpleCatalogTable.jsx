@@ -16,7 +16,6 @@ import {
 import PropTypes from "prop-types";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
-import SingleButtonHeader from "../../../../components/header/SimpleButtonHeader";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
@@ -64,7 +63,7 @@ const SimpleCatalogTable = ({ items, value1, value2, catalogName }) => {
                                 </TableCell>
                                 <TableCell>{element.codigo}</TableCell>
                                 <TableCell>
-                                    <IconButton onClick={() => navigate(catalogName + "/modificar/" + element.id, { state: { element } })}>
+                                    <IconButton onClick={() => navigate(`/configuracion/materiales/modificar/${element.id}`, { state: { element } })}>
                                         <EditIcon color="primary"></EditIcon>
                                     </IconButton>
                                 </TableCell>

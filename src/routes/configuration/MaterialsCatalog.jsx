@@ -5,8 +5,10 @@ import SimpleCatalogTable from "./components/tables/SimpleCatalogTable";
 import { getMaterialsRequest } from "../../api/catalogRequests";
 import SingleButtonHeader from "../../components/header/SimpleButtonHeader";
 import Paginator from "../../components/general/Paginator";
+import { Box, Link, Breadcrumbs } from "@mui/material";
 
 const MaterialsCatalog = () => {
+
     const [materials, setMaterials] = useState([]);
     const [pagination, setPagination] = useState({ page: 1, hasNext: false });
     const resultsPerPage = 5;
@@ -17,6 +19,7 @@ const MaterialsCatalog = () => {
 
     const data = [
         {
+            id: 1,
             material: "Oro",
             codigo: "Ma_Or",
             variables: [
@@ -53,6 +56,24 @@ const MaterialsCatalog = () => {
 
     return (
         <ContentLayout>
+            <Box>
+                <Breadcrumbs aria-label="breadcrumb" sx={{ marginBottom: 2, color: "#9F9F9F" }}>
+                    <Link
+                        underline="hover"
+                        color="inherit"
+                        sx={{ cursor: "pointer" }}
+                    >
+                        Configuración
+                    </Link>
+                    <Link
+                        underline="hover"
+                        color="inherit"
+                        sx={{ cursor: "pointer", color: "black" }}
+                    >
+                        Materiales
+                    </Link>
+                </Breadcrumbs>
+            </Box>
             <SingleButtonHeader
                 buttonLabel={"Agregar material"}
                 buttonOnClickHandler={() => navigate("/configuracion/materiales/crear")}
