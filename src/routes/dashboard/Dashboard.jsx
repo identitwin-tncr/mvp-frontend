@@ -2,17 +2,15 @@ import React, { useEffect, useRef } from "react";
 
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, Sky } from "@react-three/drei";
 import { Model } from "./components/Model";
+import { ModeloDecorativo } from "./components/ModeloDecorativo";
 
 const Dashboard = () => {
     const [visibleModel, setVisibleModel] = useState(0);
-
     const [cameraMode, setCameraMode] = useState("default");
-
     const cameraRef = useRef();
     const controlsRef = useRef();
-
     const handleChangeModel = (num) => {
         setVisibleModel(num);
     };
@@ -40,9 +38,9 @@ const Dashboard = () => {
     return (
         <div id="canvas-container">
             <Canvas>
-                <color attach="background" args={["#dddddd"]} />
+                <color attach="background" args={["#eeeeee"]} />
 
-                <ambientLight intensity={0.8} />
+                <ambientLight intensity={0.3} />
 
                 <PerspectiveCamera
                     makeDefault
@@ -79,16 +77,14 @@ const Dashboard = () => {
                     />
                 )}
                 {visibleModel === 2 && (
-                    <Model
-                        color={0x4287f5}
-                        onContextMenu={handleRightClick}
-                        onComponentClick={showPopup}
-                    />
+                    <ModeloDecorativo onContextMenu={handleRightClick} />
                 )}
             </Canvas>
+
             <div>
                 <button
                     onClick={() => handleChangeModel(0)}
+                    
                     style={{
                         position: "absolute",
                         top: "100px",
