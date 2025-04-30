@@ -10,27 +10,27 @@ const ElementsTable = ({ items, value1, value2 }) => {
     return (
         <TableContainer component={Paper} variant="outlined">
             <Table aria-label="simple table">
-                <TableHead>
+                <TableHead sx={{ backgroundColor: "#296F8C"}}>
                     <TableRow>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Categoría
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Código
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Piso
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Bloque
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Unidad tecnológica
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Orientación
                         </TableCell>
-                        <TableCell align="left"></TableCell>
+                        <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -42,7 +42,6 @@ const ElementsTable = ({ items, value1, value2 }) => {
                             <TableCell align="left">{item.block.value}</TableCell>
                             <TableCell align="left">{item.elementType.technologicalUnit.value}</TableCell>
                             <TableCell align="left">{(item.number? item.number : "--") + " " + (item.orientation.value? item.orientation.value : "--")}</TableCell>
-                            <TableCell align="left"></TableCell>
                             <TableCell align="left">
                                 <IconButton onClick={() => navigate("modificar", { state: { item } })}>
                                     <EditIcon color="primary" />

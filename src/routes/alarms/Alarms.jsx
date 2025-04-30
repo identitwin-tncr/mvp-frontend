@@ -7,9 +7,15 @@ import Paginator from "../../components/general/Paginator";
 import SelectItem from "../../components/input/SelectInput";
 import { getAlarmsRequest } from "../../api/alarmRequests";
 import { getBlocksRequest, getMonitoringVariablesRequest } from "../../api/catalogRequests";
+import { Box, Container, Typography, InputLabel, FormControl, MenuItem, Select } from "@mui/material";
+import AlarmCard from "./components/AlarmCard";
+import VariableChart from "./components/VariableChart";
 import { useNavigate } from "react-router-dom";
+import { color } from "chart.js/helpers";
 
 const Alarms = () => {
+
+    // TODO: Agregar funcionalidad y paginacion
     const [alarms, setAlarms] = useState([]);
     const [monitoringVariables, setMonitoringVariables] = useState([]);
     const [alarmBlock, setAlarmBlock] = useState([]);
@@ -17,6 +23,18 @@ const Alarms = () => {
     const [selectedBlock, setSelectedBlock] = useState('');
     const [alarmsPagination, setAlarmsPagination] = useState({ page: 1, hasNext: false });
     const resultsPerPage = 6;
+    const sampleCardData = {
+        activeTemperature: 4,
+        reviewedTemperature: 6,
+        activeTotal: 12,
+        reviewedTotal: 14,
+    };
+
+    const sampleChartData = {
+        dates: ["21/06", "22/06", "23/06", "24/06", "25/06", "26/06", "27/06"],
+        maxValues: [30, 32, 33, 31, 30, 34, 33],
+        minValues: [10, 12, 11, 13, 12, 11, 12],
+    };
 
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -69,29 +87,64 @@ const Alarms = () => {
     };
 
     return (
-        <ContentLayout>
-            <SimpleHeader title={"Alarmas"} />
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-                <SelectItem
-                    label="Variable de Monitoreo"
-                    items={monitoringVariables}
-                    selectedItem={selectedVariable}
-                    onChange={setSelectedVariable}
-                />
-                <SelectItem
-                    label="Bloque"
-                    items={alarmBlock}
-                    selectedItem={selectedBlock}
-                    onChange={setSelectedBlock}
+        <Container>
+            <Box>
+                <Typography
+                    variant="body2"
+                    sx={{
+                        color: "#9F9F9F",
+                        marginBottom: 1,
+                    }}
+                >
+                    Alarmas
+                </Typography>
+                <Typography
+                    variant="h1"
+                    sx={{
+                        color: "#143846", 
+                        fontSize: "2.5rem",
+                        fontWeight: 700, 
+                    }}
+                >
+                    Alarmas
+                </Typography>
+            </Box>
+            <Typography
+                variant="h7"
+                sx={{
+                    color: "#898989",
+                    fontWeight: 400,
+                }}
+            >
+                Variable
+            </Typography>
+            <FormControl fullWidth variant="standard" sx={{ marginBottom: "2rem", marginTop: "2rem" }}>
+                <InputLabel id="variable-select-label">Seleccionar Variable</InputLabel>
+                <Select
+                    labelId="variable-select-label"
+                    id="variable-select"
+                    defaultValue=""
+                >
+                    <MenuItem value="Temperatura">Temperatura</MenuItem>
+                    <MenuItem value="Humedad">Humedad</MenuItem>
+                    <MenuItem value="Luz">Luz</MenuItem>
+                </Select>
+            </FormControl>
+            <Box sx={{ mb: 4 }}>
+                <AlarmCard data={sampleCardData} />
+            </Box>
+            <Box sx={{ mb: 4 }}>
+                <VariableChart data={sampleChartData} />
+            </Box>
+            <div style={{ marginTop: "2rem" }}>
+                <AlarmsTable items={alarms} />
+                <Paginator
+                    page={currentAlarmsPage}
+                    onPageChangeHandler={handleAlarmsPageChange}
+                    isThereNextResultsPage={alarmsPagination.hasNext}
                 />
             </div>
-            <AlarmsTable items={alarms} />
-            <Paginator
-                page={currentAlarmsPage}
-                onPageChangeHandler={handleAlarmsPageChange}
-                isThereNextResultsPage={alarmsPagination.hasNext}
-            />
-        </ContentLayout>
+        </Container>
     );
 };
 

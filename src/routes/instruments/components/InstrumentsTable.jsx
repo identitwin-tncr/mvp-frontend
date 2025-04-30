@@ -11,29 +11,26 @@ const InstrumentsTable = ({ items, value1, value2 }) => {
         <TableContainer component={Paper} variant="outlined">
             <Table aria-label="simple table">
                 <TableHead>
-                    <TableRow>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                    <TableRow sx={{ backgroundColor: "#296F8C" }}>
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Instrumento
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Código
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Modelo
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Código de activo
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Bloque
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
+                        <TableCell sx={{ fontWeight: "bold", color: "white" }} align="left">
                             Frecuencia de monitoreo
                         </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="left">
-                            Tipo
-                        </TableCell>
-                        <TableCell align="left"></TableCell>
+                        <TableCell></TableCell>                      
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -45,8 +42,6 @@ const InstrumentsTable = ({ items, value1, value2 }) => {
                             <TableCell align="left">{item.assetCode}</TableCell>
                             <TableCell align="left">{item.block.value}</TableCell>
                             <TableCell align="left">{item.monitoringFrequency.value}</TableCell>
-                            <TableCell align="left">{item.instrumentType.value}</TableCell>
-                            <TableCell align="left"></TableCell>
                             <TableCell align="left">
                                 <IconButton onClick={() => navigate("/instrumentos/modificar/"+item.id, { state: { item } })}>
                                     <EditIcon color="primary" />
